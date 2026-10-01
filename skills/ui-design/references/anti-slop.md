@@ -111,12 +111,17 @@ Symptoms:
 - vague words such as "Unlock", "Elevate", "Seamless", or "Powerful" inside ordinary utility UI;
 - headings that do not describe a concrete object or outcome;
 - repeated subtitle patterns;
-- explanatory copy for controls whose meaning is already clear.
+- explanatory copy for controls whose meaning is already clear;
+- persistent reminders such as "Fill in the fields beside the preview" or "Changes appear immediately" in an editor;
+- the same context repeated as an eyebrow, title, and description in one panel;
+- implementation notes or sample-data disclaimers repeated in unrelated regions.
 
 Corrections:
 
 - use concrete nouns and verbs from the user's task;
-- remove copy that does not change understanding or action.
+- remove copy that does not change a decision, action, constraint, or meaningful state;
+- keep necessary labels, recovery guidance, and consequential warnings; show each at its relevant point;
+- do not relocate every deleted sentence into a tooltip or info icon.
 
 ### 9. Motion everywhere
 
@@ -171,6 +176,34 @@ Corrections:
 
 - decide whether the surface should actually be sparse;
 - if not, fix structure or content rather than decorating the absence of it.
+
+### 13. Individually spaced fields
+
+Symptoms:
+
+- input, upload, and textarea fields have different gaps to the next label;
+- counters, help text, or remove links sit outside their field and add accidental margins;
+- panel headers and body content use different insets without a structural reason.
+
+Corrections:
+
+- use one field wrapper for all of its content and a shared parent gap between wrappers;
+- assign spacing by relationship using the [layout contract](../SKILL.md#define-a-compact-layout-contract), not by control type;
+- compare rendered edges, including secondary lines and component padding, before adding local overrides.
+
+### 14. Scattered actions
+
+Symptoms:
+
+- actions for the same document or workflow are split across distant screen regions despite fitting together;
+- an extra footer or panel exists only to house one secondary button;
+- responsive reflow separates a primary action from its related controls.
+
+Corrections:
+
+- collect same-scope actions into one predictable toolbar or panel;
+- keep view and field controls close to their targets;
+- reflow or overflow the group when space is constrained instead of scattering its buttons.
 
 ## Distinctiveness test
 

@@ -9,6 +9,8 @@ Act as a product-minded design engineer, not a generic interface generator.
 
 The goal is not to make a screen merely look polished. Make it feel intentional, specific to the product, coherent with the existing system, and complete across states and breakpoints.
 
+For utility UI, default to minimum useful copy, consistent spacing by role, and grouped actions by scope. Keep design reasoning and implementation notes in the work process, not as text on the product screen.
+
 ## 1. Establish design authority
 
 Follow applicable project instructions, including `AGENTS.md`, throughout. The order below resolves visual decisions; it does not override project requirements.
@@ -86,6 +88,44 @@ Resolve these in roughly this order:
 
 Do not use decoration to compensate for unclear structure.
 
+### Define a compact layout contract
+
+Before adding markup, reuse or choose the spacing roles, field structure, and action locations for the changed surface. Apply them across sibling components instead of styling each block independently. This is a small implementation decision, not a new design-system project or a user-facing explanation.
+
+Use existing spacing tokens first. If none exist, a compact fallback is `4 / 8 / 16 / 24 / 32` px with this role mapping:
+
+| Relationship | Default |
+| --- | --- |
+| Label, control, and supporting content within a field | 8 px |
+| Adjacent buttons within an action group | 8 px |
+| Related rows within a section | 16 px |
+| One complete field to the next field | 24 px |
+| Panel padding and header-to-body spacing | 24 px |
+| Distinct sections | 32 px |
+
+These are fallback values, not overrides of supplied designs. Equal roles get equal tokens; different hierarchy levels can have different distances. Use one panel inset so headings, fields, and action rows share alignment. Responsive density may change the mapping at a breakpoint, but not arbitrarily from one sibling to another.
+
+### Keep fields structurally consistent
+
+- Treat label, optional help, control, counter, validation, and attachment actions as one field group.
+- Use the same parent `gap` between complete field groups. Keep each field's internal spacing inside its wrapper; do not tune the next field with one-off margins.
+- Include upload previews and remove/replace actions inside the attachment field. Include counters and errors inside their field, rather than as independently spaced rows.
+- Keep the same gap from the end of a complete field to the next label whether the control is an input, upload, or textarea. Check rendered spacing, not only token names: line-height, margins, and component padding can add hidden space.
+
+### Give actions a predictable home
+
+- Group actions that operate on the same object or workflow in one compact panel or toolbar when they fit. Do not distribute them among a header, sidebar footer, and canvas footer just to fill space.
+- Choose the location by scope: document actions in the document toolbar, view controls beside the view, and field actions inside the field. Consolidation should preserve this relationship.
+- Give the current task's primary action clear priority; keep secondary actions alongside it with quieter styling. Separate destructive actions within the group when needed to prevent mistakes.
+- When width runs out, reflow the group or use an accessible overflow menu for secondary actions. Preserve ordering, scope, and access to the primary action across breakpoints.
+
+### Allocate screen space to the task
+
+- Give the main task the working area it needs. In an editor, size the preview and editing controls for useful reading and manipulation before allocating space to supporting chrome.
+- Size utility headers, toolbars, and side panels to their content and controls. Reconsider a separate strip or panel that holds only one hint or secondary action; merge it into an appropriate existing region when scope allows.
+- Check what remains usable after fixed and sticky regions consume space, especially at short viewport heights and narrow widths. Avoid a layout where the task requires scrolling mainly because its chrome occupies the viewport.
+- Preserve whitespace that supports focus, grouping, or readability. Do not fill spare room with copy, stretch controls, or shrink accessible targets merely to make the screen look full or compact.
+
 ## 6. Build components for real behavior
 
 Prefer established project components over bespoke replacements.
@@ -102,9 +142,12 @@ When creating or changing components:
 
 When several component APIs are plausible, prefer the smallest coherent system.
 
+Use one geometry per component role and size variant: matching buttons share height and padding, matching inputs share control height and internal padding, and icons in the same context share size and alignment. Reuse project size tokens or define the few local values needed alongside the existing spacing contract. Multiline controls, touch variants, and other functional exceptions may differ; express the reason through a shared variant rather than a one-off CSS adjustment.
+
 ## 7. Treat typography as structure
 
 - Follow the project's type system when it exists.
+- Use one size, weight, and line-height combination per text role. Repeated labels, helper text, and section titles should not acquire local styles without a functional hierarchy change.
 - Do not add a typeface merely to make the interface feel designed.
 - Prefer sentence case unless the product language says otherwise.
 - Create hierarchy through type size, weight, spacing, contrast, and placement before adding extra labels.
@@ -156,12 +199,18 @@ Avoid:
 
 Use product vocabulary rather than implementation vocabulary.
 
+For each visible text block, ask: **what decision, action, constraint, or meaningful state would become unclear if this disappeared?** If there is no concrete answer, omit it. Do not replace deleted filler with an icon, tooltip, badge, or another explanatory layer by reflex.
+
 - CTA labels should name the real action.
 - Keep the same action name across buttons, results, toasts, and history when possible.
 - Empty states should help the user move forward.
 - Error messages should explain recovery when possible.
 - Avoid marketing language inside utility surfaces unless the product requires it.
-- Do not add filler headings or subtitles only to balance a composition.
+- Do not stack an eyebrow, heading, and subtitle when they repeat one context. For example, a selected "Cover" item rarely needs "Card fields / Cover / General details and cover" above its form; retain only the title needed for orientation.
+- Do not narrate obvious mechanics with persistent copy such as "Fill in the fields beside the preview" or "Changes appear immediately in the card" when the interaction already makes this clear.
+- Show non-obvious instructions where they are needed: a format constraint beside its field, first-use help on demand, or a state message when that state occurs. Use accessible help controls rather than hover-only tooltips for essential guidance.
+- Preserve field labels, accessible names, recovery instructions, consequential storage limitations, and warnings needed to prevent mistakes or data loss. If sample-data provenance or a locked design affects a decision, communicate it once at the relevant point, not in repeated boilerplate across panels.
+- Do not add filler headings, subtitles, or status rows only to balance a composition. A sparse panel does not need explanatory prose to look finished.
 
 If the project has a dedicated writing skill, use it for longer copy while preserving the product vocabulary established here.
 
@@ -187,10 +236,19 @@ For material UI changes:
 1. render the changed surface;
 2. inspect a primary desktop width;
 3. inspect a realistic mobile width;
-4. compare with source Figma or screenshots when provided;
-5. identify the three most visible weaknesses;
-6. fix them;
+4. exercise relevant realistic-content scenarios below and compare with source Figma or screenshots when provided;
+5. identify the most visible weaknesses and any violations of the layout contract, component geometry, or task-space allocation;
+6. fix in-scope issues and reinspect the affected scenarios;
 7. run [references/ui-review.md](references/ui-review.md).
+
+Check scenarios relevant to the changed surface using actual product content or representative examples, not only short demo strings:
+
+- **Long content:** a long title, label, URL, or user value; wrapping or truncation preserves meaning, alignment, and access to actions.
+- **Empty and invalid content:** blank fields and visible validation errors; field-group spacing stays consistent, guidance remains attached to its field, and recovery controls stay usable.
+- **Attachments:** before and after an image upload where supported; preview dimensions, replacement/removal controls, and neighboring fields remain coherent.
+- **Constrained space:** the same content at a narrow width and short viewport height; main work remains usable, controls do not collide, and grouped actions stay reachable.
+
+Treat applicable checks as acceptance criteria. For build or polish tasks, correct observed violations within the authorized scope before claiming completion; fixing only three prominent issues does not waive remaining failed checks. For review-only tasks, report failures and concrete corrections without changing the product.
 
 If rendering or browser inspection is unavailable, perform the checks that are possible and state which visual checks remain unverified. Do not claim a visual review from a successful build alone.
 

@@ -44,11 +44,29 @@ Coding agents can build functional interfaces quickly, but without strong constr
 - respect Figma, screenshots, existing components, and tokens as sources of truth;
 - define a compact visual thesis when no design direction exists;
 - fix hierarchy and structure before adding decoration;
+- apply a consistent UI system for copy, spacing, component geometry, action grouping, and working space;
 - detect common AI-looking UI patterns without blindly banning popular styles;
 - treat responsive behavior, states, accessibility, copy, and motion as part of the design;
-- render and visually review material UI changes when the environment allows it.
+- render and visually review material UI changes with realistic content and treat applicable checks as acceptance criteria when the environment allows it.
 
 The goal is not a specific aesthetic. The goal is deliberate UI that belongs to the product it was made for.
+
+## UI system
+
+The skill turns visual preferences into implementation rules and acceptance checks:
+
+| Area | Rule |
+| --- | --- |
+| Useful copy | Keep text that clarifies a decision, action, constraint, or meaningful state. Remove repeated headings and descriptions of obvious mechanics. Preserve labels, recovery guidance, and consequential warnings. |
+| Spacing | Use one spacing contract by relationship. A field includes its label, control, help, counter, error, and attachment actions; gaps between complete fields stay consistent. |
+| Component geometry | Matching roles and size variants share heights, padding, icon alignment, and text styles. Functional differences use deliberate variants. |
+| Actions | Keep related actions in one toolbar or panel when they fit. Keep document, view, and field controls near the object they affect. |
+| Working space | Give the main task enough usable area. Size supporting chrome for its contents and reconsider separate strips that contain only one hint or secondary action. |
+| Realistic content | Check long strings, empty and invalid fields, attachment states, narrow widths, and short viewport heights where relevant. |
+
+Existing designs and project tokens take precedence. When spacing tokens are absent, the skill supplies a compact `4 / 8 / 16 / 24 / 32` px fallback mapped to layout roles.
+
+For build and polish tasks, applicable checks are acceptance criteria: fix observed in-scope failures and reinspect affected scenarios before claiming completion. Review-only tasks report failures and concrete corrections. If visual inspection is unavailable, mark those checks as unverified.
 
 ## Reference
 
@@ -67,13 +85,15 @@ Choose a visual thesis if needed
         ↓
 Structure before decoration
         ↓
+Define spacing, geometry, action locations + working space
+        ↓
 Implement states + responsive behavior
         ↓
 Anti-slop check
         ↓
-Render and review
+Render with realistic content and review
         ↓
-Fix the most visible problems
+Fix failed acceptance checks and reinspect
 ```
 
 ## Usage
@@ -88,6 +108,10 @@ Use the ui-design skill to redesign this settings page without changing product 
 
 ```text
 Use ui-design to review this frontend for generic AI-looking patterns and fix the highest-impact issues.
+```
+
+```text
+Use ui-design to clean up this editor: remove redundant explanatory text, unify spacing and control geometry, group document actions, and preserve useful preview space. Verify realistic field values and validation states at desktop and mobile widths.
 ```
 
 ```text
