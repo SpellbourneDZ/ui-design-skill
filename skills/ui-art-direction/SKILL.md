@@ -11,7 +11,7 @@ The deliverable is not a fixed aesthetic, a poster, or a random visual trick. It
 
 ## 1. Respect design authority and scope
 
-Follow the user's current request and applicable project instructions such as `AGENTS.md`.
+Follow the user's current request and applicable project instructions such as `AGENTS.md` or `CLAUDE.md`.
 
 For visual decisions, resolve conflicts in this order:
 

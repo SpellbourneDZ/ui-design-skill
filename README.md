@@ -12,41 +12,72 @@ The core skill treats UI work as a sequence of product understanding, hierarchy,
 
 Use Node.js 22.20.0 or newer for the current `skills` CLI.
 
-```bash
-npx skills@latest add SpellbourneDZ/ui-design-skill
-```
+The repository contains two skills:
 
-To install only this skill explicitly:
+- `ui-design`: product UI implementation, components, states, responsive behavior, and review.
+- `ui-art-direction`: concept-first, product-specific visual direction for new interfaces and substantial redesigns.
 
-```bash
-npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-design
-```
+Both follow the Agent Skills `SKILL.md` format and can be installed in **Claude Code** and **Codex**. No separate Claude-specific package is needed.
 
-For Codex:
+### Claude Code
 
-```bash
-npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-design -a codex
-```
-
-For Codex across projects:
+Install **both skills** in the current project:
 
 ```bash
-npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-design -a codex -g
+npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-design --skill ui-art-direction -a claude-code -y
 ```
 
-To install the optional concept-focused companion skill for Codex:
+Install both **globally** for Claude Code (all your local projects):
 
 ```bash
-npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-art-direction -a codex
+npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-design --skill ui-art-direction -a claude-code -g -y
 ```
 
-To install **both** for Codex, run the repository-wide command:
+Install only the core UI skill:
 
 ```bash
-npx skills@latest add SpellbourneDZ/ui-design-skill -a codex
+npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-design -a claude-code
 ```
 
-These options are documented by the [skills CLI](https://github.com/vercel-labs/skills#options).
+Install only the art-direction skill:
+
+```bash
+npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-art-direction -a claude-code
+```
+
+With the CLI's default project scope, Claude Code finds the skills in `.claude/skills/`. With `-g`, the target is `~/.claude/skills/`.
+
+### Codex
+
+Install both skills in the current project:
+
+```bash
+npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-design --skill ui-art-direction -a codex -y
+```
+
+Install both globally for Codex:
+
+```bash
+npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-design --skill ui-art-direction -a codex -g -y
+```
+
+### Claude Code + Codex
+
+Install both skills for **both agents**, globally, with one command:
+
+```bash
+npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-design --skill ui-art-direction -a claude-code -a codex -g -y
+```
+
+Remove `-g` to install within the current project instead. `-y` skips installation prompts.
+
+Verify the installation with:
+
+```bash
+npx skills@latest ls -a claude-code -a codex
+```
+
+These flags and installation paths are documented by the [skills CLI](https://github.com/vercel-labs/skills#options).
 
 ## Why use it?
 
@@ -158,7 +189,7 @@ It does not redesign supplied work unless redesign or critique was requested.
 
 ## Compatibility
 
-The repository follows the Agent Skills directory convention used by the `skills` CLI. It contains no runtime dependencies and does not require a specific frontend framework.
+The repository follows the Agent Skills directory convention used by the `skills` CLI and is compatible with Claude Code and Codex. Claude Code can load skills from `.claude/skills/` (project) or `~/.claude/skills/` (global). The skills contain no runtime dependencies and do not require a specific frontend framework. Agent instructions such as `CLAUDE.md` or `AGENTS.md` remain authoritative.
 
 ## Repository structure
 
