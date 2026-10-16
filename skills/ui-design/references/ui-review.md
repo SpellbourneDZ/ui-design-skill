@@ -11,6 +11,15 @@ Use applicable items as acceptance criteria: fix observed in-scope failures and 
 - The visual character fits the product rather than a generic template.
 - Existing vocabulary and product conventions are preserved.
 
+## Creative direction (when a new direction was requested)
+
+- The chosen concept is grounded in the product's real task, content, or brand, not just a fashionable visual treatment.
+- The signature decision improves hierarchy, comprehension, confidence, or identity without obscuring controls.
+- Expressive treatments are concentrated where they add value; routine workflow elements remain familiar.
+- New visual patterns honor existing Figma, tokens, components, and product conventions unless redesign is explicitly authorized.
+- The direction remains understandable with realistic content, in narrow viewports, and without animation.
+- If no unusual treatment benefits the workflow, a clean conventional layout is treated as a valid success.
+
 ## Hierarchy and layout
 
 - Major sections have deliberate hierarchy.
