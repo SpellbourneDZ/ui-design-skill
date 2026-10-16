@@ -13,14 +13,14 @@ For utility UI, default to minimum useful copy, consistent spacing by role, and 
 
 ## 1. Establish design authority
 
-Follow applicable project instructions, including `AGENTS.md`, throughout. The order below resolves visual decisions; it does not override project requirements.
+Follow applicable project instructions, including `AGENTS.md` and `CLAUDE.md`, throughout. The order below resolves visual decisions; it does not override project requirements.
 
 Before changing UI, use this order of authority:
 
 1. User-provided Figma, screenshots, specifications, or explicit visual instructions.
 2. Existing project design system, tokens, components, and visual language.
 3. Product patterns already used consistently in the codebase.
-4. Project documentation such as `AGENTS.md`, `DESIGN.md`, component docs, or frontend conventions.
+4. Project documentation such as `AGENTS.md`, `CLAUDE.md`, `DESIGN.md`, component docs, or frontend conventions.
 5. This skill's defaults when no stronger direction exists.
 
 Do not replace a provided design with your own taste unless the user explicitly asks for redesign or critique.
