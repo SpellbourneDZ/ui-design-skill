@@ -63,6 +63,10 @@ Example:
 
 Do not begin with effects such as gradients, glass, large radii, or shadows. Begin with the product and task.
 
+For a significant **new visual direction**, expressive landing page, onboarding experience, branded surface, or redesign of generic UI, read [references/creative-direction.md](references/creative-direction.md) before committing to that thesis. Privately explore different product-grounded concepts, test them against task clarity, design authority, responsiveness, accessibility, and engineering cost, and choose the simplest meaningful direction. A distinctive concept is optional when familiar utility UI better serves the task.
+
+For faithful Figma implementation, routine components, bug fixes, or UI cleanup that does not call for a new direction, do not run concept exploration. Respect the provided design instead.
+
 ## 4. Run the anti-slop gate
 
 Read [references/anti-slop.md](references/anti-slop.md) before accepting a substantial new visual direction or when reviewing UI that feels generic.
