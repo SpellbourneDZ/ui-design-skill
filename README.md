@@ -4,7 +4,9 @@ A product-minded UI design skill for AI coding agents.
 
 It helps agents build interfaces that feel intentional and product-specific instead of converging on the same generic AI-generated patterns: nested cards, decorative gradients, oversized pills, arbitrary bento grids, vague copy, and motion added for decoration.
 
-The skill treats UI work as a sequence of product understanding, hierarchy, visual direction, implementation, and visual review.
+The core skill treats UI work as a sequence of product understanding, hierarchy, visual direction, implementation, and visual review.
+
+**New:** `ui-art-direction` is an optional companion skill for distinctive concepts and substantial visual redesigns. It adapts concept-first anti-template thinking to *real product interfaces*, balancing visual identity with UX, accessibility, responsive behavior, and implementation feasibility. `ui-design` also includes a smaller creative-direction reference, so it works independently.
 
 ## Install
 
@@ -32,6 +34,18 @@ For Codex across projects:
 npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-design -a codex -g
 ```
 
+To install the optional concept-focused companion skill for Codex:
+
+```bash
+npx skills@latest add SpellbourneDZ/ui-design-skill --skill ui-art-direction -a codex
+```
+
+To install **both** for Codex, run the repository-wide command:
+
+```bash
+npx skills@latest add SpellbourneDZ/ui-design-skill -a codex
+```
+
 These options are documented by the [skills CLI](https://github.com/vercel-labs/skills#options).
 
 ## Why use it?
@@ -43,6 +57,7 @@ Coding agents can build functional interfaces quickly, but without strong constr
 - understand the product, user, task, and existing design language before styling;
 - respect Figma, screenshots, existing components, and tokens as sources of truth;
 - define a compact visual thesis when no design direction exists;
+- explore genuinely different product-grounded concepts for expressive new designs without forcing decorative novelty into utility workflows;
 - fix hierarchy and structure before adding decoration;
 - apply a consistent UI system for copy, spacing, component geometry, action grouping, and working space;
 - detect common AI-looking UI patterns without blindly banning popular styles;
@@ -71,7 +86,9 @@ For build and polish tasks, applicable checks are acceptance criteria: fix obser
 ## Reference
 
 - **[ui-design](./skills/ui-design/SKILL.md)** — Main product UI design and implementation skill.
+- **[ui-art-direction](./skills/ui-art-direction/SKILL.md)** — Optional concept-first art direction for distinctive product interfaces.
 - **[anti-slop](./skills/ui-design/references/anti-slop.md)** — Diagnostic reference for generic AI-looking interface patterns.
+- **[creative-direction](./skills/ui-design/references/creative-direction.md)** — Lightweight concept exploration embedded in `ui-design` when installed alone.
 - **[ui-review](./skills/ui-design/references/ui-review.md)** — Final quality gate for product fit, hierarchy, states, responsive behavior, accessibility, motion, and visual verification.
 
 ## How it works
@@ -81,8 +98,9 @@ Understand the product
         ↓
 Respect existing design authority
         ↓
-Choose a visual thesis if needed
+Explore product-grounded concepts when needed
         ↓
+Choose a visual thesis
 Structure before decoration
         ↓
 Define spacing, geometry, action locations + working space
@@ -118,6 +136,12 @@ Use ui-design to clean up this editor: remove redundant explanatory text, unify 
 Build this page from the provided Figma. Treat the design as the source of truth and use ui-design for implementation quality and responsive behavior.
 ```
 
+For concept-first work, use the companion skill explicitly:
+
+```text
+Use ui-art-direction to create a distinctive visual direction for this booking experience. Keep the existing design tokens and make the primary flow easy to use. Then apply ui-design during implementation.
+```
+
 ## Design authority
 
 Follow applicable project instructions, including `AGENTS.md`, throughout. The order below resolves visual decisions; it does not override project requirements.
@@ -145,10 +169,13 @@ ui-design-skill/
 ├── LICENSE
 ├── README.md
 └── skills/
+    ├── ui-art-direction/
+    │   └── SKILL.md
     └── ui-design/
         ├── SKILL.md
         └── references/
             ├── anti-slop.md
+            ├── creative-direction.md
             └── ui-review.md
 ```
 
@@ -160,7 +187,9 @@ Improve execution without imposing a universal style. Start with the product's t
 
 This project is informed by the broader public work around design-focused agent skills, including [Emil Kowalski's skills](https://github.com/emilkowalski/skills), [Anthropic's frontend-design skill](https://github.com/anthropics/skills), and [Vercel's agent skills](https://github.com/vercel-labs/agent-skills).
 
-Those projects are not bundled here. `ui-design` is an independent skill with its own workflow and rules.
+The concept-first direction also draws inspiration from [TrueSpace's Anti-Slop Design Director](https://truespaceai.ru/design/), adapted for interactive, accessible UI rather than graphic design.
+
+Those projects are not bundled here. The skills in this repository have their own independent workflow and rules.
 
 ## License
 
